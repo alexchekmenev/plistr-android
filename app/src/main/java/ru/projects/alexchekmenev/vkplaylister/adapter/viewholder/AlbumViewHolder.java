@@ -1,0 +1,37 @@
+package ru.projects.alexchekmenev.vkplaylister.adapter.viewholder;
+
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import ru.projects.alexchekmenev.vkplaylister.R;
+import ru.projects.alexchekmenev.vkplaylister.TheApp;
+import ru.projects.alexchekmenev.vkplaylister.model.Album;
+
+public class AlbumViewHolder extends BinderViewHolder<Album> {
+    private TextView title;
+    private TextView audioCount;
+    private ImageView syncWithVk;
+    public View playButton;
+    public TextView stateText;
+    public ImageView stateIcon;
+
+    public AlbumViewHolder(View itemView) {
+        super(itemView);
+        title = (TextView) itemView.findViewById(R.id.title);
+        audioCount = (TextView) itemView.findViewById(R.id.itemCount);
+        syncWithVk = (ImageView) itemView.findViewById(R.id.sync_with_vk);
+        playButton = itemView.findViewById(R.id.play_button);
+        stateText = (TextView) itemView.findViewById(R.id.state_text);
+        stateIcon = (ImageView) itemView.findViewById(R.id.state_icon);
+    }
+
+    @Override
+    public void bindItem(Album item) {
+        title.setText(item.getTitle());
+        int cnt = item.getAvailableCount();
+        audioCount.setText(TheApp.getApp().getResources().getQuantityString(R.plurals.items_count, cnt, cnt));
+        syncWithVk.setImageResource(item.isSynchronizedWithVk() ? R.drawable.vk
+                : R.drawable.android);
+    }
+}
